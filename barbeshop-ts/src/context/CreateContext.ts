@@ -1,10 +1,13 @@
 import { createContext } from 'react';
-import type { UserLogin } from '../types/TypeDates'
+import type { UserProfileToken } from '../types/TypeDates'
+
 type GeneralAction = { 
-    user: UserLogin;
-    Login: (email: string, password: string) =>  void;
-    Logout: () => void; 
-    Register: (email: string, password: string, name: string) => void; 
+    user: UserProfileToken | null;
+    Login: (email: string, password: string) => Promise<void>;
+    Logout: () => Promise<void>; 
+    Register: (email: string, password: string, name: string) => Promise<void>; 
     IsLoggeIn: () => boolean;
+    isLoading: boolean;
 }
-export const AuthContext = createContext<GeneralAction>({} as GeneralAction)
+
+export const AuthContext = createContext<GeneralAction | undefined>(undefined);

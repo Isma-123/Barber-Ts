@@ -1,10 +1,10 @@
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../css.styles/Auth.css";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/CreateContext";
 
 const Register = () => {
-  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,11 +12,15 @@ const Register = () => {
     confirmPassword: ""
   });
   const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; confirmPassword?: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  if (!authContext) {
+    throw new Error("AuthContext no está disponible");
+  }
+
+  const { Register: handleRegister, isLoading } = authContext;
 
   const validateForm = () => {
     const newErrors: typeof errors = {};
-    
     
     if (!formData.name) {
       newErrors.name = "El nombre es obligatorio";
@@ -31,8 +35,6 @@ const Register = () => {
     // Validar email
     if (!formData.email) {
       newErrors.email = "El correo es obligatorio";
-    } else if (formData.email.length < 5) {
-      newErrors.email = "El correo debe tener al menos 5 caracteres";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Debe ser un correo válido";
     }
@@ -42,12 +44,6 @@ const Register = () => {
       newErrors.password = "La contraseña es obligatoria";
     } else if (formData.password.length < 6) {
       newErrors.password = "La contraseña debe tener al menos 6 caracteres";
-    } else if (!/[a-z]/.test(formData.password)) {
-      newErrors.password = "La contraseña debe contener al menos una letra minúscula";
-    } else if (!/[A-Z]/.test(formData.password)) {
-      newErrors.password = "La contraseña debe contener al menos una letra mayúscula";
-    } else if (!/[0-9]/.test(formData.password)) {
-      newErrors.password = "La contraseña debe contener al menos un número";
     }
     
     // Validar confirmación de contraseña
@@ -69,20 +65,7 @@ const Register = () => {
       return;
     }
     
-    setIsSubmitting(true);
-    try {
-      console.log("Register data:", formData);
-      
-      // Simular llamada a API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast.success("¡Registro exitoso! Redirigiendo...");
-      setTimeout(() => navigate("/"), 2000);
-    } catch {  
-      toast.error("Error al registrarse. Intenta de nuevo");
-    } finally {
-      setIsSubmitting(false);
-    }
+    await handleRegister(formData.email, formData.password, formData.name);
   };
 
   return (
@@ -106,11 +89,11 @@ const Register = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className={errors.name ? "input-error" : ""}
+                disabled={isLoading}
               />
               {errors.name && <span className="error-message">{errors.name}</span>}
             </div>
 
-            {/* EMAIL */}
             <div className="form-group">
               <label htmlFor="email">Correo electrónico</label>
               <input
@@ -120,11 +103,11 @@ const Register = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className={errors.email ? "input-error" : ""}
+                disabled={isLoading}
               />
               {errors.email && <span className="error-message">{errors.email}</span>}
             </div>
 
-            {/* PASSWORD */}
             <div className="form-group">
               <label htmlFor="password">Contraseña</label>
               <input
@@ -134,12 +117,12 @@ const Register = () => {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className={errors.password ? "input-error" : ""}
+                disabled={isLoading}
               />
               {errors.password && <span className="error-message">{errors.password}</span>}
-              <p className="password-hint">Mín. 6 caracteres, una mayúscula, una minúscula y un número</p>
+              <p className="password-hint">Mín. 6 caracteres</p>
             </div>
 
-            {/* CONFIRM PASSWORD */}
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmar contraseña</label>
               <input
@@ -149,6 +132,7 @@ const Register = () => {
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 className={errors.confirmPassword ? "input-error" : ""}
+                disabled={isLoading}
               />
               {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
             </div>
@@ -156,9 +140,9 @@ const Register = () => {
             <button
               type="submit"
               className="btn-submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
             >
-              {isSubmitting ? "Registrando..." : "Registrarse"}
+              {isLoading ? "Registrando..." : "Registrarse"}
             </button>
           </form>
           <p className="switch">

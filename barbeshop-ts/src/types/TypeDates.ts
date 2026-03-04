@@ -1,13 +1,13 @@
 /// datos evaluaar
 export type UserProfileToken = { 
-     name: string,
      email: string
      token: string
 }
-export type UserLogin = { 
+export type UserRegister = { 
     password: string,
     email: string
-}
+    name?: string
+} 
 
 export type User = {
   readonly id?: number; 
@@ -15,4 +15,9 @@ export type User = {
   email: string,
   IsActive?: boolean,
   rol: 'user' | 'admin'
+}
+
+export type ApiResponse<T> = {
+  data: T;
+  status: number;
 }
