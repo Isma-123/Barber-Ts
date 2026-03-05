@@ -15,25 +15,25 @@ const Navbar = () => {
         </div>
 
         <nav className="navbar-links">
-          <Link to="/servicios" className="nav-link">
-            Servicios
+          <Link to="/inicio" className="nav-link">
+             inicio
           </Link>
-          <Link to="/" className="nav-link">
+          <Link to="/galeria" className="nav-link">
             Galería
           </Link>
-          <Link to="/" className="nav-link">
+          <Link to="/aboutus" className="nav-link">
             Sobre Nosotros
           </Link>
-          <Link to="/" className="nav-link">
-            Contacto
+          <Link to = "/servicios" className ="nav-link"> 
+             servicios
           </Link>
         </nav>
 
         <div className="navbar-auth">
-          <button className="btn btn-success" onClick={() => navigate("/login")}>
+          <button className="btn-login" onClick={() => navigate("/login")}>
             Iniciar Sesión
           </button>
-          <button className="btn btn-primary" onClick={() => navigate("/register")}>
+          <button className="btn-register" onClick={() => navigate("/register")}>
             Registrarse
           </button>
         </div>

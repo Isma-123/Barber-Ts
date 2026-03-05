@@ -99,7 +99,7 @@ const Servicios = () => {
       <section className="servicios-cta">
         <h2>¿Listo para tu próxima cita?</h2>
         <p>Reserva ahora y obtén un 10% de descuento en tu primer servicio</p>
-        <button className="btn-cta-large" onClick={() => navigate("/login") }>
+        <button className="btn-cta-large" onClick={() => navigate("/login")}>
           Reservar Cita Ahora
         </button>
       </section>

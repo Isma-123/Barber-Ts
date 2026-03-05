@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css.styles/Auth.css";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/CreateContext";
 
 const Register = () => {
@@ -62,6 +63,7 @@ const Register = () => {
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      toast.error('Por favor corrige los errores antes de continuar');
       return;
     }
     

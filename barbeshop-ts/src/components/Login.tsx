@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../css.styles/Auth.css";
 import { useContext, useState } from "react";
+import  { toast } from "react-toastify";
 import { AuthContext } from "../context/CreateContext";
 
 export const Login = () => { 
@@ -38,6 +39,7 @@ export const Login = () => {
     e.preventDefault();
     
     if (!validateForm()) {
+      toast.error('Por favor corrige los errores antes de continuar');
       return;
     }
     

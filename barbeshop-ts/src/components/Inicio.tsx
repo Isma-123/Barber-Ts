@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import Contactanos from "./Contactanos";
 import "../css.styles/Inicio.premium.css";
 
 const Inicio = () => {
@@ -84,6 +85,9 @@ const Inicio = () => {
           </div>
         </div>
       </section>
+    <section className="contact-section premium">
+      <Contactanos />
+    </section>
 
     </>
   );
