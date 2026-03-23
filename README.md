@@ -177,14 +177,6 @@ This project is for educational purposes.
 
 ---
 
-## 🔥 Extra (para que te destaques en GitHub)
-
-Te recomiendo agregar:
-
-* 📸 Screenshots del proyecto
-* 🔗 Demo en vivo
-* 🧠 Explicación de arquitectura (puedo ayudarte con eso)
-
 ---
 
 
