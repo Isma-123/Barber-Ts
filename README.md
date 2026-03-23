@@ -46,7 +46,7 @@ A responsive barbershop web application built with React and TypeScript. The pla
 
 * ⚛️ React
 * 🟦 TypeScript
-* 🎨 Tailwind CSS / Bootstrap (según estés usando)
+* 🎨 Tailwind CSS 
 * 🌐 Axios (API communication)
 * 🔐 JWT Authentication
 * ⚡ Vite (for fast development)
